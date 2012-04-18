@@ -1,0 +1,20 @@
+# rdoc generated
+rdoc
+
+# yard generated
+doc
+.yardoc
+
+# For MacOS:
+.DS_Store
+
+# For TextMate
+*.tmproj
+tmtags
+
+
+*.bundle
+*.o
+*.gem
+
+test/*
