@@ -8,7 +8,7 @@
 
 Gem::Specification.new do |s|
     s.name              = "rubyosa19"
-    s.version           = "0.5.0"
+    s.version           = "0.6.0"
     s.authors           = [ "Alain Hoang", "Jan Dvorak", "Minh Thu Vo", "James Adam", "Paolo Bosetti" ]
     s.homepage          = "http://github.com/pbosetti/rubyosa19"
     s.email             = "p4010@me.com"
