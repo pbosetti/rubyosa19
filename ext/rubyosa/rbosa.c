@@ -135,7 +135,7 @@ rbosa_element_new (VALUE self, VALUE type, VALUE value)
     FourCharCode    ffc_type;
     OSErr           error;
     const char *    c_value;
-    unsigned        c_value_size;
+    unsigned long   c_value_size;
     AEDesc          desc;
 
     ffc_type = RVAL2FOURCHAR (type);
@@ -259,7 +259,7 @@ __rbosa_raise_potential_app_error (AEDesc *reply)
 
     AEDisposeDesc (&errorNumDesc);
 
-    rb_raise (rb_eRuntimeError, exception);
+    rb_raise (rb_eRuntimeError, "Exception: %s", exception);
 }
 
 static VALUE
@@ -588,7 +588,7 @@ __rbosa_elementlist_get (VALUE self, long index, AEKeyword *keyword)
                           &desc);
     
     if (error != noErr)
-        rb_raise (rb_eRuntimeError, "Cannot get desc at index %d : %s (%d)", 
+        rb_raise (rb_eRuntimeError, "Cannot get desc at index %ld : %s (%d)", 
                   index, error_code_to_string (error), error);
 
     return rbosa_element_make (cOSAElement, &desc, rb_ivar_get (self, sApp));
@@ -615,7 +615,7 @@ __rbosa_elementrecord_set (VALUE key, VALUE value, AEDescList *list)
     error = AEPutKeyDesc (list, RVAL2FOURCHAR (key), rbosa_element_aedesc (value));
     if (error != noErr) 
         rb_raise (rb_eRuntimeError, "Cannot set value %p for key %p of record %p: %s (%d)", 
-                  value, key, list, error_code_to_string (error), error);
+                  (void *)value, (void *)key, list, error_code_to_string (error), error);
  
     return ST_CONTINUE;
 }

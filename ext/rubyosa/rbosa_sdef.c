@@ -29,7 +29,7 @@
 #include <ApplicationServices/ApplicationServices.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <unistd.h>
-#include <st.h>
+#include <ruby/st.h>
 #include "rbosa.h"
 
 static void 
@@ -344,7 +344,7 @@ rbosa_scripting_info (VALUE self, VALUE hash)
         CFDataRef       sdef_data;
         
         if (!rbosa_translate_app (criterion, value, &signature, &name, &fs, &error))
-            rb_raise (rb_eRuntimeError, error);
+            rb_raise (rb_eRuntimeError, "Error translating: %s", error);
 
         osa_error = OSACopyScriptingDefinition (&fs, kOSAModeNull, &sdef_data);
         if (osa_error != noErr)
@@ -374,7 +374,7 @@ rbosa_remote_processes (VALUE self, VALUE machine)
     CFArrayRef cfary; 
     CFStreamError cferr;
     VALUE ary;
-    unsigned i, count;
+    unsigned long i, count;
 
     snprintf (buf, sizeof buf, "eppc://%s", RVAL2CSTR (machine));
     str = CFStringCreateWithCString (kCFAllocatorDefault, buf, kCFStringEncodingUTF8);
@@ -387,7 +387,7 @@ rbosa_remote_processes (VALUE self, VALUE machine)
     if (cfary == NULL) {
         AEDisposeRemoteProcessResolver (resolver);
         rb_raise (rb_eRuntimeError, "Can't resolve the remote processes on machine '%s' : error %d (domain %d)",
-                  RVAL2CSTR (machine), cferr.error, cferr.domain);
+                  RVAL2CSTR (machine), cferr.error, (int)cferr.domain);
     }
 
     ary = rb_ary_new ();
