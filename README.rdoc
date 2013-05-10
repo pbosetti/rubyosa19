@@ -1,6 +1,30 @@
-= rubyosa19
+= rubyosa19: OSX scripting in Ruby instead of AppleScript
 
-Description goes here.
+This is a modernization of the glorious but unmaintained rubyosa gem, aimed at making it compatible with ruby 1.9.x series. At the moment, it successfully compiles on OS X Lion and Mountain Lion.
+
+rubyosa lets you use Ruby instead of AppleScript when writing scripts for OSX.  For example:
+
+    require 'rubyosa'
+
+    iTunes = OSA.app('iTunes')
+    puts iTunes.current_track.name
+    iTunes.current_volume = 50
+    iTunes.play
+
+You can also interactively use rubyosa from IRB, which can be a convenient way to explore the available properties:
+
+    $ irb
+    001 > require 'rubyosa'
+     => true
+    002 > iTunes = OSA.app('iTunes')
+     => <OSA::ITunes::Application:0x007fb9a30d0a98 desc="'sign'(366B6F6F6836)">
+    003 > iTunes.cur      # ... then press TAB to show this:
+    iTunes.current_encoder       iTunes.current_encoder=      iTunes.current_eq_preset
+    iTunes.current_eq_preset=    iTunes.current_playlist      iTunes.current_stream_title
+    iTunes.current_stream_url    iTunes.current_track         iTunes.current_visual
+    iTunes.current_visual=
+
+Apple has some documentation for rubyosa in their guide, {Ruby and Python Programming Topics for OS X}[https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/RubyPythonCocoa/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004936].
 
 == Contributing to rubyosa19
  
@@ -16,4 +40,3 @@ Description goes here.
 
 Copyright (c) 2012 Paolo Bosetti. See LICENSE.txt for
 further details.
-
