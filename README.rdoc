@@ -8,7 +8,7 @@ rubyosa lets you use Ruby instead of AppleScript when writing scripts for OSX.  
 
     iTunes = OSA.app('iTunes')
     puts iTunes.current_track.name
-    iTunes.current_volume = 50
+    iTunes.sound_volume = 50
     iTunes.play
 
 You can also interactively use rubyosa from IRB, which can be a convenient way to explore the available properties:
